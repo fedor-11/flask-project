@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Таблица задач</title>{% endblock %}
+
+{% block content %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">Search your task</h1>
+                        <ol class="breadcrumb mb-4">
+
+
+            <div class="input-group mb-3">
+                <form class="d-flex" action="/search" method="POST">
+                    <input type="text" class="form-control" placeholder="Find your task" aria-label="Find your task" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+                </form>
+            </div>
+                        </ol>
+
+
+<table class="table">
+        <thead>
+            <tr class="table-light">
+              <th scope="col" class="table-success">#</th>
+              <th scope="col" class="table-success">Time add</th>
+              <th scope="col" class="table-success">Task</th>
+              <th scope="col" class="table-success">Type</th>
+              <th scope="col" class="table-success">Change</th>
+              <th scope="col" class="table-success">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+                {% if i.type == 'fast' %}
+                    <tr class="table-danger">
+                        <th scope="row">{{ i.id }}</th>
+                        <td>{{ i.time }}</td>
+                        <td>{{ i.text }}</td>
+                        <td>{{ i.type }} &#128293</td>
+                        <td>
+                            <form action="/change/{{ i.id }}">
+                                <button class="btn btn-outline-success">change</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/remove/{{ i.id }}">
+                                <button class="btn btn-outline-success">remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="table-light">
+                        <th scope="row">{{ i.id }}</th>
+                        <td>{{ i.time }}</td>
+                        <td>{{ i.text }}</td>
+                        <td>{{ i.type }}</td>
+                        <td>
+                            <form action="/change/{{ i.id }}">
+                                <button class="btn btn-outline-success">change</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/remove/{{ i.id }}">
+                                <button class="btn btn-outline-success">remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+<!-- type="button" class="btn btn-outline-success" -->
+    <form action="/form" align="center">
+        <button class="btn btn-outline-success">&nbsp&nbsp&nbsp&nbsp+&nbsp&nbsp&nbsp&nbsp</button>
+    </form>
+        </div>
+    </main>
+</div>
+{% endblock %}
